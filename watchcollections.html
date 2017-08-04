@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tic Toc Enterprise</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/full-slider.css" rel="stylesheet">
+    <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+    
+    body {
+        background-color: #f9f9f9;
+    }
+    
+    .layout {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        font-family: 'Arimo', sans-serif;
+        font-size: 16px;
+        line-height: 1.5em;
+        font-weight: 400;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+    
+    .inner {
+        max-width: 100%;
+        padding: 0 0.5em;
+        padding-top: 0.5em;
+        transition: all 0.3s;
+    }
+    
+    .grid {
+        margin: 0 0 0 -0.5em;
+        list-style-type: none;
+        transition: all 0.3s
+    }
+    
+    .grid:before,
+    .grid:after {
+        content: " ";
+        display: table
+    }
+    
+    .grid:after {
+        clear: both
+    }
+    
+    .grid-tile {
+        width: 100%;
+        position: relative;
+        float: left;
+        padding: 0 0 0.5em 0.5em;
+        box-sizing: border-box;
+        transition: all 0.3s;
+    }
+    
+    .item {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background-color: #fff;
+        border-radius: 15px;
+        border: 2px solid #eee;
+        box-sizing: border-box;
+    }
+    
+    .item-img {
+        width: 100%;
+        padding-bottom: 115%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+    
+    .item-img:hover {
+        cursor: -webkit-grab;
+        cursor: -moz-grab;
+    }
+    
+    .item-img:active {
+        cursor: -webkit-grabbing;
+        cursor: -moz-grabbing;
+    }
+    
+    .item-pnl {
+        /*position: relative;*/
+        width: 100%;
+    }
+    
+    .pnl-wrapper {
+        width: 100%;
+        height: 60px;
+        display: table;
+    }
+    
+    .pnl-wrapper>div {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    .pnl-description {
+        position: relative;
+        padding: 0;
+        padding-left: 0.5em;
+    }
+    
+    .pnl-label {
+        color: #424346;
+        line-height: 16px;
+        max-height: 2.6em;
+        font-size: 0.75em;
+        overflow: hidden;
+        display: block;
+    }
+    
+    .pnl-price {
+        line-height: 16px;
+        color: #111;
+        font-weight: 700;
+        font-size: 0.75em;
+        display: block;
+        /*margin-top: 0.125em;*/
+    }
+    
+    .pnl-ic-wrapper {
+        width: 32px;
+        height: 32px;
+        line-height: 0;
+        position: relative;
+        margin: 0 auto;
+        transform: scale(0.5);
+    }
+    
+    .pnl-ic-wrapper svg {
+        fill: none;
+        stroke-width: 2.0;
+        stroke-linecap: round;
+        stroke-miterlimit: 4;
+        stroke-location: outside;
+    }
+    
+    .pnl-ic {
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .pnl-favorites svg {
+        stroke: #a1a8ad;
+    }
+    
+    .pnl-favorites {
+        width: 32px;
+        cursor: pointer;
+        position: relative;
+    }
+    
+    .pnl-tocart svg {
+        stroke: #a1a8ad;
+    }
+    
+    .pnl-tocart {
+        width: 32px;
+        cursor: pointer;
+        position: relative;
+    }
+    
+    @media screen and (min-width: 320px) {
+        .pnl-wrapper {
+            height: 70px
+        }
+        .pnl-label,
+        .pnl-price {
+            font-size: 1em;
+            line-height: 20px;
+        }
+        .pnl-favorites,
+        .pnl-tocart {
+            width: 56px
+        }
+        .pnl-ic-wrapper {
+            transform: scale(0.75)
+        }
+        .pnl-description {
+            padding-left: 1.0em
+        }
+    }
+    
+    @media screen and (min-width: 360px) {
+        .inner {
+            padding: 0 1.0em;
+            padding-top: 1.0em
+        }
+        .grid {
+            margin: 0 0 0 -1.0em
+        }
+        .grid-tile {
+            padding: 0 0 1.0em 1.0em
+        }
+        .pnl-description {
+            padding-left: 1.5em
+        }
+        .pnl-wrapper {
+            height: 70px
+        }
+    }
+    /* PORTRAIT MOBILE MODE
+ */
+    
+    @media screen and (min-width: 480px) {
+        .inner {
+            padding: 0 0.5em;
+            padding-top: 0.5em
+        }
+        .grid {
+            margin: 0 0 0 -0.5em
+        }
+        .grid-tile {
+            padding: 0 0 0.5em 0.5em
+        }
+        .grid-tile {
+            width: 50%
+        }
+        .pnl-wrapper {
+            height: 60px
+        }
+        .pnl-description {
+            padding-left: 0.5em
+        }
+        .pnl-label,
+        .pnl-price {
+            font-size: 0.75em;
+            line-height: 18px;
+        }
+        .pnl-ic-wrapper {
+            transform: scale(0.5)
+        }
+        .pnl-favorites,
+        .pnl-tocart {
+            width: 40px
+        }
+    }
+    /* LANDSCAPE MOBILE MODE (~416px)
+ */
+    
+    @media (max-height: 26em) {
+        .pnl-wrapper {
+            height: 48px
+        }
+        .grid-tile {
+            width: 33.3333%
+        }
+        .pnl-label {
+            font-size: 0.7em;
+            line-height: 14px;
+        }
+        .pnl-price {
+            font-size: 0.7em;
+            line-height: 14px;
+        }
+        .pnl-favorites {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: 0;
+            right: 0
+        }
+        .pnl-ic-wrapper {
+            transform: scale(0.5)
+        }
+    }
+    
+    @media screen and (min-width: 600px) {
+        .inner {
+            padding: 0 1.0em;
+            padding-top: 1.0em
+        }
+        .grid {
+            margin: 0 0 0 -1.0em
+        }
+        .grid-tile {
+            padding: 0 0 1.0em 1.0em
+        }
+        .pnl-wrapper {
+            height: 70px
+        }
+        .pnl-label,
+        .pnl-price {
+            font-size: 1em;
+            line-height: 20px;
+        }
+        .pnl-favorites,
+        .pnl-tocart {
+            width: 56px
+        }
+        .pnl-ic-wrapper {
+            transform: scale(0.75)
+        }
+        .pnl-description {
+            padding-left: 1.0em
+        }
+    }
+    
+    @media screen and (min-width: 768px) {
+        .inner {
+            padding: 0 1.5em;
+            padding-top: 1.5em
+        }
+        .grid {
+            margin: 0 0 0 -1.5em
+        }
+        .grid-tile {
+            padding: 0 0 1.5em 1.5em
+        }
+    }
+    
+    @media screen and (min-width: 912px) {}
+    
+    @media screen and (min-width: 1024px) {
+        .grid-tile {
+            width: 33.3333%
+        }
+    }
+    
+    @media screen and (min-width: 1300px) {
+        .pnl-description {
+            padding-left: 1.5em
+        }
+    }
+</style>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Tic Toc</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" style="float: right; padding-left: 100px;">
+                    <li>
+                        <a href="#">Collections</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Popular</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+
+    <section id="intro" style="padding-top: 50px;">
+        <h1> Watch Collections Gallery</h1>
+
+        <img src="./images/watches.jpg" style="width: 100%; height: 300px;"></img>
+    </section>
+
+    <section id="shopping">
+
+        <div class="layout">
+            <section class="inner">
+                <ul class="grid">
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 0%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 0%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 0%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid-tile">
+                        <div class="item">
+                            <div class="item-img" style="background-image: url('./images/pocketwatch.jpg'); background-size: auto auto; background-size: 150%; background-position: center 30%; height: 130px;"></div>
+                            <div class="item-pnl">
+                                <div class="pnl-wrapper">
+                                    <div class="pnl-description">
+                                        <span class="pnl-label"> Watch brand/year</span>
+                                        <span class="pnl-price">$100,00</span>
+                                    </div>
+                                    <div class="pnl-favorites">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><path d="M22.6,6.5c-2.9,0-5.4,1.7-6.6,4.1c-1.2-2.4-3.7-4.1-6.6-4.1C5.3,6.5,2,9.8,2,13.9C2,23.7,15.8,29,15.8,29S30,23.6,30,13.9C30,9.8,26.7,6.5,22.6,6.5L22.6,6.5z"></path></svg></span>
+                                        </div>
+                                    </div>
+                                    <div class="pnl-tocart">
+                                        <div class="pnl-ic-wrapper">
+                                            <span class="pnl-ic"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve"><g><path d="M25.4,29H6.6c-1.7,0-3-1.4-2.8-2.9l1.9-13.8C5.9,11,6.6,10,8,10h16c1.4,0,2.1,1,2.3,2.3l1.9,13.8 C28.4,27.6,27.1,29,25.4,29z"></path><path d="M10.6,12.7V8.4C10.6,5.4,13,3,16,3h0c3,0,5.4,2.4,5.4,5.4v4.3"></path></g></svg></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer style="background-color: white; padding-top: 50px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Thank you for visiting</h3>
+                <h4>Copyright &copy; Tic Toc Enterprise 2017</h4>
+            </div>
+
+
+            <h3> Follow us </h3>
+            <a href="https://www.facebook.com/TicTocDaytonaBeach/"><i class="fa fa-facebook-square" style="font-size: 30px;" aria-hidden="true"></i><a>
+                         <i class="fa fa-google-plus" style="font-size: 30px;" aria-hidden="true"></i>
+                         <i class="fa fa-instagram" style="font-size: 30px;"aria-hidden="true"></i>
+                    </div>
+                    
+
+
+            <!-- /.row -->
+    </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js "></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js "></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+       
+
+//==============
+
+
+
+
+
+function createHeartIc(el) {
+	var el = el,
+		span = el.querySelector('span'),
+		svg = span.querySelector('svg'),
+		opacityCurve = mojs.easing.path('M0,0 C0,87 27,100 40,100 L40,0 L100,0'),
+		scaleCurve = mojs.easing.path('M0,0c0,80,39.2,100,39.2,100L40-100c0,0-0.7,106,60,106'),
+		burst = new mojs.Burst({
+			parent: el,
+			duration: 1200,
+			delay: 200,
+			shape: 'circle',
+			fill: '#E87171',
+			x: '50%', y: '50%',
+			opacity: {1:0},
+			childOptions: { 
+				radius: {6:0},
+				type: 'line',
+				stroke: '#E87171',
+				strokeWidth: 2
+			},
+			radius: {0:32},
+			count: 7,
+			//isSwirl: true,
+			isRunLess: true,
+			easing: mojs.easing.bezier(0.1, 1, 0.3, 1)
+		}),
+		heart = new Animocon(el, {
+			tweens : [
+				/* // ring animation
+				new mojs.Transit({
+					parent: el11,
+					duration: 1000,
+					delay: 100,
+					type: 'circle',
+					radius: {0: 95},
+					fill: 'transparent',
+					stroke: '#C0C1C3',
+					strokeWidth: {50:0},
+					opacity: 0.4,
+					x: '50%',     
+					y: '50%',
+					isRunLess: true,
+					easing: mojs.easing.bezier(0, 1, 0.5, 1)
+				}),
+				// ring animation
+				new mojs.Transit({
+					parent: el11,
+					duration: 1800,
+					delay: 300,
+					type: 'circle',
+					radius: {0: 80},
+					fill: 'transparent',
+					stroke: '#C0C1C3',
+					strokeWidth: {40:0},
+					opacity: 0.2,
+					x: '50%',     
+					y: '50%',
+					isRunLess: true,
+					easing: mojs.easing.bezier(0, 1, 0.5, 1)
+				}), */
+				// icon scale animation
+				
+				burst,
+				
+				new mojs.Tween({
+					duration : 800,
+					easing: mojs.easing.ease.out,
+					onUpdate: function(progress) {
+						var opacityProgress = opacityCurve(progress);
+						span.style.opacity = opacityProgress;
+
+						var scaleProgress = scaleCurve(progress);
+						span.style.WebkitTransform = span.style.transform = 'scale3d(' + scaleProgress + ',' + scaleProgress + ',1)';
+
+						var colorProgress = opacityCurve(progress);
+						svg.style.fill = colorProgress >= 1 ? '#E87171' : 'none';
+						svg.style.stroke = colorProgress >= 1 ? '#E87171' : '#a1a8ad';
+					}
+				})	
+			],
+			onUnCheck : function() {
+				svg.style.fill = 'none';
+				svg.style.stroke = '#a1a8ad';
+			}
+		});
+
+	return heart;
+}
+
+
+function createCartIc(el) {
+	var el = el,
+		span = el.querySelector('span'),
+		svg = span.querySelector('svg'),
+		body = svg.getElementsByTagName("path")[0],
+		opacityCurve = mojs.easing.path('M0,0 C0,87 27,100 40,100 L40,0 L100,0'),
+		scaleCurve = mojs.easing.path('M0,0c0,80,39.2,100,39.2,100L40-100c0,0-0.7,106,60,106'),
+		burst = new mojs.Burst({
+			parent: el,
+			duration: 1200,
+			delay: 200,
+			shape: 'circle',
+			fill: '#111111',
+			x: '50%', y: '50%',
+			opacity: {1:0},
+			childOptions: { 
+				radius: {6:2},
+				type: 'line',
+				stroke: '#111111',
+				strokeWidth: 2
+			},
+			radius: {0:36},
+			angle: 45,
+			count: 4,
+			//isSwirl: true,
+			isRunLess: true,
+			easing: mojs.easing.bezier(0.1, 1, 0.3, 1)
+		}),
+		heart = new Animocon(el, {
+			tweens : [
+				/* // ring animation
+				new mojs.Transit({
+					parent: el11,
+					duration: 1000,
+					delay: 100,
+					type: 'circle',
+					radius: {0: 95},
+					fill: 'transparent',
+					stroke: '#C0C1C3',
+					strokeWidth: {50:0},
+					opacity: 0.4,
+					x: '50%',     
+					y: '50%',
+					isRunLess: true,
+					easing: mojs.easing.bezier(0, 1, 0.5, 1)
+				}),
+				// ring animation
+				new mojs.Transit({
+					parent: el11,
+					duration: 1800,
+					delay: 300,
+					type: 'circle',
+					radius: {0: 80},
+					fill: 'transparent',
+					stroke: '#C0C1C3',
+					strokeWidth: {40:0},
+					opacity: 0.2,
+					x: '50%',     
+					y: '50%',
+					isRunLess: true,
+					easing: mojs.easing.bezier(0, 1, 0.5, 1)
+				}), */
+				// icon scale animation
+				
+				burst,
+				
+				new mojs.Tween({
+					duration : 800,
+					easing: mojs.easing.ease.out,
+					onUpdate: function(progress) {
+						var opacityProgress = opacityCurve(progress);
+						span.style.opacity = opacityProgress;
+
+						var scaleProgress = scaleCurve(progress);
+						span.style.WebkitTransform = span.style.transform = 'scale3d(' + scaleProgress + ',' + scaleProgress + ',1)';
+
+						var colorProgress = opacityCurve(progress);
+						body.style.fill = colorProgress >= 1 ? '#111111' : 'none';
+						svg.style.stroke = colorProgress >= 1 ? '#111111' : '#a1a8ad';
+					}
+				})	
+			],
+			onUnCheck : function() {
+				body.style.fill = 'none';
+				svg.style.stroke = '#a1a8ad';
+			}
+		});
+
+	return heart;
+}
+
+
+var hearts = document.getElementsByClassName('pnl-favorites'),
+	carts = document.getElementsByClassName('pnl-tocart');
+
+for (var i=0;i<hearts.length;i++) {
+	createHeartIc(hearts[i].querySelector('div'));
+	createCartIc(carts[i].querySelector('div'));
+}
+    </script>
+
+    <script>
+        $(".hover ").mouseleave(
+            function() {
+                $(this).removeClass("hover ");
+            }
+        );
+    </script>
+
+</body>
+
+</html>
+</body>
+
+</html>
